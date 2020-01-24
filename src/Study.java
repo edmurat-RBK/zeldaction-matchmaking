@@ -1,4 +1,14 @@
 public enum Study {
-    DESIGN,
-    ART
+    DESIGN {
+        @Override
+        public String toString() {
+            return "GD";
+        }
+    },
+    ART {
+        @Override
+        public String toString() {
+            return "GA";
+        }
+    }
 }

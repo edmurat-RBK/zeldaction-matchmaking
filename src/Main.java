@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Main {
@@ -12,41 +14,29 @@ public class Main {
     private static void initialise(String path) {
         //Input file which needs to be parsed
         String fileToParse = path;
-        BufferedReader fileReader = null;
-
         //Delimiter used in CSV file
         final String DELIMITER = ",";
 
+        BufferedReader fileReader = null;
         try
         {
-            String line = "";
-            //Create the file reader
             fileReader = new BufferedReader(new FileReader(fileToParse));
+            //Skip header line
+            fileReader.readLine();
 
-            //Read the file line by line
+            String line = "";
             while ((line = fileReader.readLine()) != null)
             {
-                //Get all tokens available in line
                 String[] tokens = line.split(DELIMITER);
                 String tmpName = tokens[0];
-                Study tmpStudy = (tokens[1]=="GD" ? Study.DESIGN : Study.ART);
-                Pool tmpClassPool = (tokens[2]=="1" ? Pool.CLASS_1 : Pool.CLASS_2);
-                Specialisation tmpSpecialisation;
-                if(tokens[4] == "Oui") {
-                    tmpSpecialisation = Specialisation.PROJECT_MANAGER;
-                }
-                else if(tokens[5] == "Oui") {
-                    tmpSpecialisation = Specialisation.LEAD_PROGRAMMER;
-                }
-                else if(tokens[6] == "Oui") {
-                    tmpSpecialisation = Specialisation.ART_DIRECTOR;
-                }
-                else {
-                    tmpSpecialisation = Specialisation.NONE;
-                }
+                Study tmpStudy = (tokens[1].equals("GD") ? Study.DESIGN : Study.ART);
+                Pool tmpClassPool = (tokens[2].equals("1")  ? Pool.CLASS_1 : Pool.CLASS_2);
+                String tmpLastProjectName = tokens[3];
+                boolean tmpProjectManager = tokens[4].equals("TRUE");
+                boolean tmpLeadProgrammer = tokens[5].equals("TRUE");
+                boolean tmpArtDirector = tokens[6].equals("TRUE");
 
-                new Student(tmpName,tmpStudy,tmpClassPool,tmpSpecialisation);
-
+                StudentTable.addEntry(new Student(tmpName,tmpStudy,tmpClassPool,tmpLastProjectName,tmpProjectManager,tmpLeadProgrammer,tmpArtDirector));
             }
         }
         catch (Exception e) {
@@ -62,4 +52,7 @@ public class Main {
         }
     }
 
+    private static void draft(ArrayList<Student> table) {
+
+    }
 }
