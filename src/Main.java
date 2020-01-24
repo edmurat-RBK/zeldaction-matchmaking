@@ -6,9 +6,11 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        String path = "D:\\Project\\zeldaction-matching\\data\\student_list.csv";
+        String path = "D:\\Project\\zeldaction-matching\\data\\student_list_skills.csv";
         initialise(path);
 
+        //StudentTable.print(StudentTable.allTable());
+        draft();
     }
 
     private static void initialise(String path) {
@@ -52,7 +54,11 @@ public class Main {
         }
     }
 
-    private static void draft(ArrayList<Student> table) {
+    private static void draft() {
+        Draft draftClass1 = new Draft(Pool.CLASS_1,5,8,9,4,5,3,4);
+        Draft draftClass2 = new Draft(Pool.CLASS_2,5,8,9,4,5,3,4);
 
+        System.out.println(draftClass1);
+        System.out.println(draftClass2);
     }
 }

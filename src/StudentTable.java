@@ -28,7 +28,7 @@ public class StudentTable {
     public static HashSet<Student> inStudy(Study study, HashSet<Student> table) {
         HashSet<Student> output = new HashSet<>();
         for(Student student : table) {
-            if(student.study == Study.DESIGN) {
+            if(student.study == study) {
                 output.add(student);
             }
         }
@@ -38,7 +38,7 @@ public class StudentTable {
     public static HashSet<Student> inPool(Pool classPool, HashSet<Student> table) {
         HashSet<Student> output = new HashSet<>();
         for(Student student : table) {
-            if(student.classPool == Pool.CLASS_1) {
+            if(student.classPool == classPool) {
                 output.add(student);
             }
         }
@@ -75,10 +75,10 @@ public class StudentTable {
         return output;
     }
 
-    public static HashSet<Student> onProject(String projectName, HashSet<Student> table) {
+    public static HashSet<Student> onRogueLike(String projectName, HashSet<Student> table) {
         HashSet<Student> output = new HashSet<>();
         for(Student student : table) {
-            if(student.lastProjectName.equals(projectName)) {
+            if(student.rogueLikeProject.equals(projectName)) {
                 output.add(student);
             }
         }
@@ -86,12 +86,13 @@ public class StudentTable {
     }
 
     public static Student randomOne(HashSet<Student> table) {
-        int rdm = new Random().nextInt(table.size()); // In real life, the Random object should be rather more shared than this
-        int iter = 0;
-        for(Student student : table)
-        {
-            if (iter == rdm) { return student; }
-            iter++;
+        if(!table.isEmpty()) {
+            int rdm = new Random().nextInt(table.size());
+            int iter = 0;
+            for (Student student : table) {
+                if (iter == rdm) { return student; }
+                iter++;
+            }
         }
         return null;
     }
