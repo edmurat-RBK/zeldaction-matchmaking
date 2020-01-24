@@ -29,6 +29,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return (projectManager ? "[PM]" : "") + (leadProgrammer ? "[LP]" : "") + (artDirector ? "[AD]" : "") + (study==Study.DESIGN ? "(GD) " : "(GA) ") + name;
+        return (projectManager ? "[PM]" : (leadProgrammer ? "[LP]" : (artDirector ? "[AD]" : "    "))) + (study==Study.DESIGN ? "(GD) " : "(GA) ") + name;
     }
 }

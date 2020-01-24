@@ -19,7 +19,7 @@ public class Group {
         String output = "Groupe : "+designCount+"GD / "+artCount+"GA"+"\n";
         output += "Score : "+relationScore + "\n";
         for(Student s : draft) {
-            output += s + " - ";
+            output += s + "\n";
         }
         return output;
     }

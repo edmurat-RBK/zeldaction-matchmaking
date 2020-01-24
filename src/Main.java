@@ -1,3 +1,4 @@
+import javax.sound.midi.Track;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -56,10 +57,28 @@ public class Main {
     }
 
     private static void draft() {
-        Draft draftClass1 = new Draft(Pool.CLASS_1);
-        Draft draftClass2 = new Draft(Pool.CLASS_2);
+        Tracker tracker = new Tracker();
 
-        System.out.println(draftClass1);
-        System.out.println(draftClass2);
+        Draft draftClass1 = new Draft(Pool.CLASS_1);
+        tracker.draftCount++;
+        tracker.initDraft(draftClass1);
+
+        Draft draftClass2 = new Draft(Pool.CLASS_2);
+        tracker.draftCount++;
+        tracker.initDraft(draftClass2);
+
+        while(tracker.draftCount < tracker.maximumDraft) {
+            draftClass1 = new Draft(Pool.CLASS_1);
+            tracker.draftCount++;
+            tracker.compareDraft(draftClass1);
+
+            draftClass2 = new Draft(Pool.CLASS_2);
+            tracker.draftCount++;
+            tracker.compareDraft(draftClass2);
+
+            if(tracker.draftCount % 10000 == 0) {
+                System.out.println(tracker.draftCount+" drafts made");
+            }
+        }
     }
 }

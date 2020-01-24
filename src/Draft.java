@@ -22,8 +22,8 @@ public class Draft {
         output += "Average score : " + averageScore + "\n";
         output += "Standard deviation : " + deviationScore + "\n";
         output += "==============================\n";
-        for(Group g : groupSet) {
-            output += g + "\n\n";
+        for(Group group : groupSet) {
+            output += group + "\n";
         }
         return output;
     }
