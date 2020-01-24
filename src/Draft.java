@@ -3,29 +3,25 @@ import java.util.HashSet;
 public class Draft {
 
     public Pool classDraft;
-    public int totalGroup;
-    public int minPerson, maxPerson;
-    public int minDesigner, maxDesigner;
-    public int minArtist, maxArtist;
     public HashSet<Student> studentSet;
     public HashSet<Group> groupSet;
+    public int totalScore;
+    public float averageScore;
+    public float deviationScore;
 
-    public Draft(Pool classDraft, int totalGroup, int minPerson, int maxPerson, int minDesigner, int maxDesigner, int minArtist, int maxArtist) {
+    public Draft(Pool classDraft) {
         this.classDraft = classDraft;
-        this.totalGroup = totalGroup;
-        this.minPerson = minPerson;
-        this.maxPerson = maxPerson;
-        this.minDesigner = minDesigner;
-        this.maxDesigner = maxDesigner;
-        this.minArtist = minArtist;
-        this.maxArtist = maxArtist;
-
         this.makeDraft();
     }
 
     @Override
     public String toString() {
         String output = "Draft ("+ (classDraft==Pool.CLASS_1 ? "Classe 1)" : "Classe 2)") + " : " + "\n";
+        output += "==============================\n";
+        output += "Total relation score : " + totalScore + "\n";
+        output += "Average score : " + averageScore + "\n";
+        output += "Standard deviation : " + deviationScore + "\n";
+        output += "==============================\n";
         for(Group g : groupSet) {
             output += g + "\n\n";
         }
@@ -105,8 +101,26 @@ public class Draft {
         }
 
         //Calculate "relation score" of each group
+        for(Group group : groupSet) {
+            group.evaluateRelation();
+            evaluateDraft();
+        }
 
+    }
 
+    public void evaluateDraft() {
+        totalScore = 0;
+        for(Group group : groupSet) {
+            totalScore += group.relationScore;
+        }
+
+        averageScore = totalScore / groupSet.size();
+
+        double deviationSum = 0;
+        for(Group group : groupSet) {
+            deviationSum += Math.pow(group.relationScore-averageScore,2);
+        }
+        deviationScore = (float) Math.sqrt(deviationSum / groupSet.size());
     }
 
 }

@@ -6,10 +6,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        String path = "D:\\Project\\zeldaction-matching\\data\\student_list_skills.csv";
+        String path = "D:\\Project\\zeldaction-matching\\data\\student_list_test.csv";
         initialise(path);
-
-        //StudentTable.print(StudentTable.allTable());
         draft();
     }
 
@@ -33,12 +31,15 @@ public class Main {
                 String tmpName = tokens[0];
                 Study tmpStudy = (tokens[1].equals("GD") ? Study.DESIGN : Study.ART);
                 Pool tmpClassPool = (tokens[2].equals("1")  ? Pool.CLASS_1 : Pool.CLASS_2);
-                String tmpLastProjectName = tokens[3];
-                boolean tmpProjectManager = tokens[4].equals("TRUE");
-                boolean tmpLeadProgrammer = tokens[5].equals("TRUE");
-                boolean tmpArtDirector = tokens[6].equals("TRUE");
+                String tmpBoardGame = tokens[3];
+                String tmpRogueLike = tokens[4];
+                boolean tmpProjectManager = tokens[5].equals("TRUE");
+                boolean tmpLeadProgrammer = tokens[6].equals("TRUE");
+                boolean tmpArtDirector = tokens[7].equals("TRUE");
+                String[] tmpBanList = new String[]{tokens[8],tokens[9],tokens[10]};
+                String[] tmpFavList = new String[]{tokens[11]};
 
-                StudentTable.addEntry(new Student(tmpName,tmpStudy,tmpClassPool,tmpLastProjectName,tmpProjectManager,tmpLeadProgrammer,tmpArtDirector));
+                StudentTable.addEntry(new Student(tmpName,tmpStudy,tmpClassPool,tmpBoardGame,tmpRogueLike,tmpProjectManager,tmpLeadProgrammer,tmpArtDirector,tmpBanList,tmpFavList));
             }
         }
         catch (Exception e) {
@@ -55,8 +56,8 @@ public class Main {
     }
 
     private static void draft() {
-        Draft draftClass1 = new Draft(Pool.CLASS_1,5,8,9,4,5,3,4);
-        Draft draftClass2 = new Draft(Pool.CLASS_2,5,8,9,4,5,3,4);
+        Draft draftClass1 = new Draft(Pool.CLASS_1);
+        Draft draftClass2 = new Draft(Pool.CLASS_2);
 
         System.out.println(draftClass1);
         System.out.println(draftClass2);
