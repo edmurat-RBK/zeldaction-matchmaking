@@ -1,3 +1,5 @@
+package matchmaking;
+
 public enum Specialisation {
     NONE,
     PROJECT_MANAGER {

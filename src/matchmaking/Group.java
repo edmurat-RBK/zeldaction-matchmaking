@@ -1,3 +1,5 @@
+package matchmaking;
+
 import java.util.HashSet;
 
 public class Group {

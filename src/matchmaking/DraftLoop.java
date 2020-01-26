@@ -1,12 +1,38 @@
+package matchmaking;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLOutput;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class DraftLoop {
 
-    public DraftLoop (String filePath, int maxDraft) {
+    public DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    public LocalDateTime startTime;
+    public LocalDateTime endTime;
+    public static Tracker tracker;
+
+    public DraftLoop (String filePath, int maxDraft, int timeOut) {
+        startTime = LocalDateTime.now();
         initialise(filePath);
-        draft(maxDraft,10000000);
+        draft(maxDraft,timeOut);
+        endTime = LocalDateTime.now();
+
+        System.out.println("========================================");
+        System.out.println("Start time : "+timeFormat.format(startTime));
+        System.out.println("  End time : "+timeFormat.format(endTime));
+        System.out.println("");
+        System.out.println("Best of class 1 :");
+        System.out.println("               Average : " + tracker.bestClass1.averageScore);
+        System.out.println("    Standard deviation : " + Math.round(tracker.bestClass1.deviationScore*1000)/1000.0);
+        System.out.println("");
+        System.out.println("Best of class 2 :");
+        System.out.println("               Average : " + tracker.bestClass2.averageScore);
+        System.out.println("    Standard deviation : " + Math.round(tracker.bestClass2.deviationScore*1000)/1000.0);
+        System.out.println("========================================");
     }
 
     private static void initialise(String path) {
@@ -54,7 +80,7 @@ public class DraftLoop {
     }
 
     private static void draft(int maxDraft,int timeOut) {
-        Tracker tracker = new Tracker(maxDraft,timeOut);
+        tracker = new Tracker(maxDraft,timeOut);
 
         Draft draftClass1 = new Draft(Pool.CLASS_1);
         tracker.initDraft(draftClass1);
@@ -70,6 +96,9 @@ public class DraftLoop {
             tracker.compareDraftClass2(draftClass2);
 
             tracker.incCounter();
+            if(tracker.draftCount%1000 == 0) {
+                System.out.println(Math.round((1.0 * tracker.draftCount) / tracker.maximumDraft * 10000)*1.0/100 + "% - " + tracker.draftCount + " drafts completed"); /*[Best Class 1 : "+tracker.bestClass1.averageScore+"/"+tracker.bestClass1.deviationScore+" || Best Class 2 : "+tracker.bestClass2.averageScore+"/"+tracker.bestClass2.deviationScore+"]");*/
+            }
         }
     }
 

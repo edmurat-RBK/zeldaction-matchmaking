@@ -1,3 +1,5 @@
+package matchmaking;
+
 public class GaussFunction {
 
     public double mu;

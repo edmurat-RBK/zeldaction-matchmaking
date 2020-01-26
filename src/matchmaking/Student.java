@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package matchmaking;
 
 public class Student {
 
@@ -11,8 +11,8 @@ public class Student {
     public boolean projectManager;
     public boolean leadProgrammer;
     public boolean artDirector;
-    public String[] banList = new String[3];
-    public String[] favList = new String[1];
+    public String[] banList;
+    public String[] favList;
 
     public Student(String name, Study study, Pool classPool, String boardGameProject, String rogueLikeProject, boolean projectManager, boolean leadProgrammer, boolean artDirector, String[] banList, String[] favList) {
         this.name = name;

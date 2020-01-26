@@ -1,3 +1,5 @@
+package matchmaking;
+
 import java.util.HashSet;
 
 public class Draft {
@@ -16,7 +18,7 @@ public class Draft {
 
     @Override
     public String toString() {
-        String output = "Draft ("+ (classDraft==Pool.CLASS_1 ? "Classe 1)" : "Classe 2)") + " : " + "\n";
+        String output = "matchmaking.Draft ("+ (classDraft==Pool.CLASS_1 ? "Classe 1)" : "Classe 2)") + " : " + "\n";
         output += "==============================\n";
         output += "Total relation score : " + totalScore + "\n";
         output += "Average score : " + averageScore + "\n";

@@ -1,4 +1,7 @@
+package matchmaking;
+
 import java.io.*;
+import java.net.URL;
 
 public class Tracker {
 
@@ -64,7 +67,9 @@ public class Tracker {
     public void printToFile(Draft draft) {
         timeOutCount = 0;
 
-        File newFile = new File("D:\\Project\\zeldaction-matching\\data\\output\\pool_"+(draft.classDraft==Pool.CLASS_1 ? "1" : "2")+"\\draft_"+draftCount+".txt");
+        String fileToCreate = "pool_"+(draft.classDraft==Pool.CLASS_1 ? "1" : "2")+"\\draft_"+draftCount+".txt";
+        File jarFile = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        File newFile = new File(jarFile,fileToCreate);
         try {
             newFile.createNewFile();
             FileWriter writer = new FileWriter(newFile);

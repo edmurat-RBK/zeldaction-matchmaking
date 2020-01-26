@@ -1,3 +1,5 @@
+package matchmaking;
+
 public enum Pool {
     CLASS_1{
         @Override

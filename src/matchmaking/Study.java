@@ -1,3 +1,5 @@
+package matchmaking;
+
 public enum Study {
     DESIGN {
         @Override

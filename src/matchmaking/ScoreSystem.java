@@ -1,3 +1,5 @@
+package matchmaking;
+
 public class ScoreSystem {
 
     public static int rogueLikeRelation = 6;
