@@ -75,16 +75,6 @@ public class StudentTable {
         return output;
     }
 
-    public static HashSet<Student> onRogueLike(String projectName, HashSet<Student> table) {
-        HashSet<Student> output = new HashSet<>();
-        for(Student student : table) {
-            if(student.rogueLikeProject.equals(projectName)) {
-                output.add(student);
-            }
-        }
-        return output;
-    }
-
     public static Student randomOne(HashSet<Student> table) {
         if(!table.isEmpty()) {
             int rdm = new Random().nextInt(table.size());

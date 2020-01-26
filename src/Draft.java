@@ -20,7 +20,7 @@ public class Draft {
         output += "==============================\n";
         output += "Total relation score : " + totalScore + "\n";
         output += "Average score : " + averageScore + "\n";
-        output += "Standard deviation : " + deviationScore + "\n";
+        output += "Standard deviation : " + Math.round(deviationScore*1000)/1000.0 + "\n";
         output += "==============================\n";
         for(Group group : groupSet) {
             output += group + "\n";
@@ -114,7 +114,7 @@ public class Draft {
             totalScore += group.relationScore;
         }
 
-        averageScore = totalScore / groupSet.size();
+        averageScore = (totalScore * 1.0f) / groupSet.size();
 
         double deviationSum = 0;
         for(Group group : groupSet) {
