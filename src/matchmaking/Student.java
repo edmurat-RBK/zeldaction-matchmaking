@@ -11,19 +11,47 @@ public class Student {
     public boolean projectManager;
     public boolean leadProgrammer;
     public boolean artDirector;
-    public String[] banList;
+    public int wishGP;
+    public int wishND;
+    public int wishLD;
+    public int wishSD;
+    public int skillGP;
+    public int skillND;
+    public int skillLD;
+    public int skillSD;
+    public String[] softBanList;
+    public String[] hardBanList;
     public String[] favList;
 
-    public Student(String name, Study study, Pool classPool, String boardGameProject, String rogueLikeProject, boolean projectManager, boolean leadProgrammer, boolean artDirector, String[] banList, String[] favList) {
+    public Student(String name, Study study, Pool classPool,
+                   String boardGameProject, String rogueLikeProject,
+                   boolean projectManager, boolean leadProgrammer, boolean artDirector,
+                   int wishGP, int wishND, int wishLD, int wishSD,
+                   int skillGP, int skillND, int skillLD, int skillSD,
+                   String[] softBanList, String[] hardBanList, String[] favList) {
         this.name = name;
         this.study = study;
         this.classPool = classPool;
+
         this.boardGameProject = boardGameProject;
         this.rogueLikeProject = rogueLikeProject;
+
         this.projectManager = projectManager;
         this.leadProgrammer = leadProgrammer;
         this.artDirector = artDirector;
-        this.banList = banList;
+
+        this.wishGP = wishGP;
+        this.wishND = wishND;
+        this.wishLD = wishLD;
+        this.wishSD = wishSD;
+
+        this.skillGP = skillGP;
+        this.skillND = skillND;
+        this.skillLD = skillLD;
+        this.skillSD = skillSD;
+
+        this.softBanList = softBanList;
+        this.hardBanList = hardBanList;
         this.favList = favList;
     }
 

@@ -17,11 +17,17 @@ public class Tracker {
     public Draft bestClass1;
     public Draft bestClass2;
 
+    /**
+     * Tracker constructor
+     */
     public Tracker(int maximumDraft, int timeOut) {
         this.maximumDraft = maximumDraft;
         this.timeOut = timeOut;
     }
 
+    /**
+     * Increment counters
+     */
     public void incCounter() {
         draftCount++;
         timeOutCount++;
@@ -32,6 +38,9 @@ public class Tracker {
         }
     }
 
+    /**
+     * Initialise first best draft
+     */
     public void initDraft(Draft draft) {
         if(draft.classDraft == Pool.CLASS_1) {
             bestClass1 = draft;
@@ -41,13 +50,20 @@ public class Tracker {
         }
     }
 
+    /**
+     * Compare a draft to best draft of class 1
+     */
     public void compareDraftClass1(Draft draft) {
+        //If draft average better than best draft
         if(bestClass1.averageScore >= draft.averageScore) {
+
+            //Calculate integral bewteen best gauss function and draft gauss function
             GaussFunction championFunction = new GaussFunction(bestClass1.averageScore, bestClass1.deviationScore);
             GaussFunction challengerFunction = new GaussFunction(draft.averageScore, draft.deviationScore);
             double championIntegral = championFunction.simpson(draft.averageScore - draft.deviationScore, draft.averageScore + draft.deviationScore, 10);
             double challengerIntegral = challengerFunction.simpson(draft.averageScore - draft.deviationScore, draft.averageScore + draft.deviationScore, 10);
 
+            //If integral positive, replace best draft by given draft
             if (challengerIntegral - championIntegral > 0) {
                 bestClass1 = draft;
                 printToFile(draft);
@@ -55,13 +71,20 @@ public class Tracker {
         }
     }
 
+    /**
+     * Compare a draft to best draft of class 2
+     */
     public void compareDraftClass2(Draft draft) {
+        //If draft average better than best draft
         if(bestClass2.averageScore >= draft.averageScore) {
+
+            //Calculate integral bewteen best gauss function and draft gauss function
             GaussFunction championFunction = new GaussFunction(bestClass2.averageScore, bestClass2.deviationScore);
             GaussFunction challengerFunction = new GaussFunction(draft.averageScore, draft.deviationScore);
             double championIntegral = championFunction.simpson(draft.averageScore - draft.deviationScore, draft.averageScore + draft.deviationScore, 10);
             double challengerIntegral = challengerFunction.simpson(draft.averageScore - draft.deviationScore, draft.averageScore + draft.deviationScore, 10);
 
+            //If integral positive, replace best draft by given draft
             if (challengerIntegral - championIntegral > 0) {
                 bestClass2 = draft;
                 printToFile(draft);
@@ -69,13 +92,19 @@ public class Tracker {
         }
     }
 
+    /**
+     * Generate file and print draft inside
+     */
     public void printToFile(Draft draft) {
         timeOutCount = 0;
 
+        //Get file path
         String fileToCreate = "pool_"+(draft.classDraft==Pool.CLASS_1 ? "1" : "2")+"\\draft_"+draftCount+".txt";
         File jarFile = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
         File jarDirectory = new File(jarFile.getParent());
         File newFile = new File(jarDirectory,fileToCreate);
+
+        //Create and fill file
         try {
             newFile.createNewFile();
             FileWriter writer = new FileWriter(newFile, StandardCharsets.UTF_8);

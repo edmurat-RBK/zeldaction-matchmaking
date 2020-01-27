@@ -15,12 +15,20 @@ public class DraftLoop {
     public LocalDateTime endTime;
     public static Tracker tracker;
 
-    public DraftLoop (String filePath, int maxDraft, int timeOut) {
+    /**
+     * Draft loop
+     */
+    public DraftLoop (int maxDraft, int timeOut) {
+        // Get time when the loop start
         startTime = LocalDateTime.now();
-        initialise(filePath);
+
+        //Start draft loop
         draft(maxDraft,timeOut);
+
+        // Get time when the loop end
         endTime = LocalDateTime.now();
 
+        //Final display
         System.out.println("========================================");
         System.out.println("Start time : "+timeFormat.format(startTime));
         System.out.println("  End time : "+timeFormat.format(endTime));
@@ -35,67 +43,34 @@ public class DraftLoop {
         System.out.println("========================================");
     }
 
-    private static void initialise(String path) {
-        //Input file which needs to be parsed
-        String fileToParse = path;
-        //Delimiter used in CSV file
-        final String DELIMITER = ",";
-
-        BufferedReader fileReader = null;
-        try
-        {
-            fileReader = new BufferedReader(new FileReader(fileToParse));
-            //Skip header line
-            fileReader.readLine();
-
-            String line = "";
-            while ((line = fileReader.readLine()) != null)
-            {
-                String[] tokens = line.split(DELIMITER);
-                String tmpName = tokens[0];
-                Study tmpStudy = (tokens[1].equals("GD") ? Study.DESIGN : Study.ART);
-                Pool tmpClassPool = (tokens[2].equals("1")  ? Pool.CLASS_1 : Pool.CLASS_2);
-                String tmpBoardGame = tokens[3];
-                String tmpRogueLike = tokens[4];
-                boolean tmpProjectManager = tokens[5].equals("TRUE");
-                boolean tmpLeadProgrammer = tokens[6].equals("TRUE");
-                boolean tmpArtDirector = tokens[7].equals("TRUE");
-                String[] tmpBanList = new String[]{tokens[8],tokens[9],tokens[10]};
-                String[] tmpFavList = new String[]{tokens[11]};
-
-                StudentTable.addEntry(new Student(tmpName,tmpStudy,tmpClassPool,tmpBoardGame,tmpRogueLike,tmpProjectManager,tmpLeadProgrammer,tmpArtDirector,tmpBanList,tmpFavList));
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally
-        {
-            try {
-                fileReader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
+    /**
+     * Draft loop
+     */
     private static void draft(int maxDraft,int timeOut) {
+        //Init tracker
         tracker = new Tracker(maxDraft,timeOut);
 
+        //Initialise a best draft for class 1 (GD1/GA1)
         Draft draftClass1 = new Draft(Pool.CLASS_1);
         tracker.initDraft(draftClass1);
 
+        //Initialise a best draft for class 2 (GD2/GA2)
         Draft draftClass2 = new Draft(Pool.CLASS_2);
         tracker.initDraft(draftClass2);
 
+        //While draft count don't reach maximum draft count
         while(tracker.draftCount < tracker.maximumDraft) {
+            //Draft for class 1 (GD1/GA1)
             draftClass1 = new Draft(Pool.CLASS_1);
             tracker.compareDraftClass1(draftClass1);
 
+            //Draft for class 2 (GD2/GA2)
             draftClass2 = new Draft(Pool.CLASS_2);
             tracker.compareDraftClass2(draftClass2);
 
+            //Increment counters
             tracker.incCounter();
+            //Display processing lines
             if(tracker.draftCount%Main.promptFrequency == 0) {
                 System.out.println(Math.round((1.0 * tracker.draftCount) / tracker.maximumDraft * 10000)*1.0/100 + "% - " + tracker.draftCount + " drafts completed"); /*[Best Class 1 : "+tracker.bestClass1.averageScore+"/"+tracker.bestClass1.deviationScore+" || Best Class 2 : "+tracker.bestClass2.averageScore+"/"+tracker.bestClass2.deviationScore+"]");*/
             }

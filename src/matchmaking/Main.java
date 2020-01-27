@@ -12,6 +12,9 @@ public class Main {
     public static int timeOut;
     public static int promptFrequency;
 
+    /**
+     * Main method
+     */
     public static void main(String[] args) throws URISyntaxException {
         URI path;
         if(args.length >= 1) {
@@ -23,12 +26,18 @@ public class Main {
             File jarDirectory = new File(jarFile.getParent());
             path = new File(jarDirectory,fileToFind).toURI();
         }
-        initialise(path);
+        initialiseConfig(path);
+        initialiseData(csvPath);
 
-        DraftLoop loop = new DraftLoop(csvPath,maxDraft,timeOut);
+        DraftLoop loop = new DraftLoop(maxDraft,timeOut);
     }
 
-    private static void initialise(URI fileToParse) {
+    /**
+     * Initialisation
+     * Read config.txt file
+     * Apply parameters
+     */
+    private static void initialiseConfig(URI fileToParse) {
         //Input file which needs to be parsed
         String delimiter = "=";
         BufferedReader fileReader = null;
@@ -85,6 +94,75 @@ public class Main {
                             break;
                     }
                 }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                fileReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Initialisation
+     * Read student data CSV
+     */
+    private static void initialiseData(String fileToParse) {
+
+        //Delimiter used in CSV file
+        final String DELIMITER = ",";
+
+        //Init BufferedReader
+        BufferedReader fileReader = null;
+        try
+        {
+            //Load file into BufferedReader
+            fileReader = new BufferedReader(new FileReader(fileToParse));
+            //Skip header line
+            fileReader.readLine();
+
+            //Go through every lines
+            String line = "";
+            while ((line = fileReader.readLine()) != null)
+            {
+                //Split line
+                String[] tokens = line.split(DELIMITER);
+
+                //Store token in Student object
+                String tmpName = tokens[0];
+                Study tmpStudy = (tokens[1].equals("GD") ? Study.DESIGN : Study.ART);
+                Pool tmpClassPool = (tokens[2].equals("1")  ? Pool.CLASS_1 : Pool.CLASS_2);
+                String tmpBoardGame = tokens[3];
+                String tmpRogueLike = tokens[4];
+                boolean tmpProjectManager = tokens[5].equals("TRUE");
+                boolean tmpLeadProgrammer = tokens[6].equals("TRUE");
+                boolean tmpArtDirector = tokens[7].equals("TRUE");
+                int wishGP = Integer.parseInt(tokens[8]);
+                int wishND = Integer.parseInt(tokens[9]);
+                int wishLD = Integer.parseInt(tokens[10]);
+                int wishSD = Integer.parseInt(tokens[11]);
+                int skillGP = Integer.parseInt(tokens[12]);
+                int skillND = Integer.parseInt(tokens[13]);
+                int skillLD = Integer.parseInt(tokens[14]);
+                int skillSD = Integer.parseInt(tokens[15]);
+                String[] tmpSoftBanList = new String[]{tokens[16]};
+                String[] tmpHardBanList = new String[]{tokens[17],tokens[18],tokens[19],tokens[20],tokens[21]};
+                String[] tmpFavList = new String[]{tokens[22],tokens[23],tokens[24]};
+
+                //Send Student object to StudentTable
+                StudentTable.addEntry(new Student(
+                        tmpName,tmpStudy,tmpClassPool,
+                        tmpBoardGame,tmpRogueLike,
+                        tmpProjectManager,tmpLeadProgrammer,tmpArtDirector,
+                        wishGP,wishND,wishLD,wishSD,
+                        skillGP,skillND,skillLD,skillSD,
+                        tmpSoftBanList,tmpHardBanList,tmpFavList));
             }
         }
         catch (Exception e) {

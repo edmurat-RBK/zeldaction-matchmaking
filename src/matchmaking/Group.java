@@ -8,11 +8,6 @@ public class Group {
     public int designCount = 0;
     public int artCount = 0;
     public int relationScore = 0;
-    /*
-    public int projectManagerCount = 0;
-    public int leadProgrammerCount = 0;
-    public int artDirectorCount = 0;
-     */
 
     @Override
     public String toString() {
@@ -26,53 +21,52 @@ public class Group {
         return output;
     }
 
+    /**
+     * Group constructor
+     */
     public Group() {
         this.draft = new HashSet<>();
     }
 
+    /**
+     * Add student to the group
+     */
     public void join(Student student) {
         draft.add(student);
         groupCount();
     }
 
+    /**
+     * Count designer and artist in group
+     */
     public void groupCount() {
-        resetCount();
+        designCount = 0;
+        artCount = 0;
 
         for(Student student : draft) {
             if(student.study == Study.DESIGN) { designCount++; }
             else if(student.study == Study.ART) { artCount++; }
-
-            /*
-            if(student.projectManager) { projectManagerCount++; }
-            if(student.leadProgrammer) { leadProgrammerCount++; }
-            if(student.artDirector) { artDirectorCount++; }
-            */
         }
     }
 
-    public void resetCount() {
-        designCount = 0;
-        artCount = 0;
-        /*
-        projectManagerCount = 0;
-        leadProgrammerCount = 0;
-        artDirectorCount = 0;
-        */
-    }
-
+    /**
+     * Calculate group score
+     */
     public void evaluateRelation() {
+        //For each student in the group...
         for(Student student : draft) {
+            //...then for each other student in the group...
             for(Student other : draft) {
                 if(!student.equals(other)) {
-                    // Rogue-like
+                    // Rogue-like relation
                     if(student.rogueLikeProject.equals(other.rogueLikeProject)) {
                         relationScore += ScoreSystem.rogueLikeRelation;
                     }
-                    //Board game
+                    //Board game relation
                     if(student.boardGameProject.equals(other.boardGameProject)) {
                         relationScore += ScoreSystem.boardGameRelation;
                     }
-                    //No common project
+                    //No common project relation
                     if(!student.rogueLikeProject.equals(other.rogueLikeProject) && !student.boardGameProject.equals(other.boardGameProject)) {
                         relationScore += ScoreSystem.noWorkRelation;
                     }

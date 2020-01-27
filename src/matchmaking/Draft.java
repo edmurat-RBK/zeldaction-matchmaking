@@ -13,6 +13,9 @@ public class Draft {
     public float averageScore;
     public float deviationScore;
 
+    /**
+     * Setup draft
+     */
     public Draft(Pool classDraft) {
         this.classDraft = classDraft;
         this.makeDraft();
@@ -32,11 +35,14 @@ public class Draft {
         return output;
     }
 
+    /**
+     * Generate d draft
+     */
     private void makeDraft() {
-        //Get a copy of table
+        //Get a copy of student table
         studentSet = StudentTable.inPool(classDraft,StudentTable.allTable());
 
-        //Create empty group
+        //Create 5 empty group
         groupSet = new HashSet<>();
         for(int i=0; i<5 ; i++) {
             groupSet.add(new Group());
@@ -112,14 +118,20 @@ public class Draft {
 
     }
 
+    /**
+     * Calculate draft score
+     */
     public void evaluateDraft() {
+        //Get total score
         totalScore = 0;
         for(Group group : groupSet) {
             totalScore += group.relationScore;
         }
 
+        //Get score average
         averageScore = (totalScore * 1.0f) / groupSet.size();
 
+        //Get score standard deviation
         double deviationSum = 0;
         for(Group group : groupSet) {
             deviationSum += Math.pow(group.relationScore-averageScore,2);
