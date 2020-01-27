@@ -2,6 +2,10 @@ package matchmaking;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Tracker {
 
@@ -9,6 +13,7 @@ public class Tracker {
     public int timeOutCount = 0;
     public int maximumDraft;
     public int timeOut;
+    public DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     public Draft bestClass1;
     public Draft bestClass2;
 
@@ -23,7 +28,7 @@ public class Tracker {
 
         if(timeOutCount >= timeOut) {
             System.out.println("Timeout after "+draftCount+" drafts");
-            draftCount = maximumDraft + 1;
+            System.exit(0);
         }
     }
 
@@ -69,11 +74,12 @@ public class Tracker {
 
         String fileToCreate = "pool_"+(draft.classDraft==Pool.CLASS_1 ? "1" : "2")+"\\draft_"+draftCount+".txt";
         File jarFile = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-        File newFile = new File(jarFile,fileToCreate);
+        File jarDirectory = new File(jarFile.getParent());
+        File newFile = new File(jarDirectory,fileToCreate);
         try {
             newFile.createNewFile();
-            FileWriter writer = new FileWriter(newFile);
-            writer.write("Draft n°"+draftCount+"\n\n\n"+draft);
+            FileWriter writer = new FileWriter(newFile, StandardCharsets.UTF_8);
+            writer.write("Draft n°"+draftCount+"\n"+ timeFormat.format(LocalDateTime.now()) +"\n\n\n"+draft);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();

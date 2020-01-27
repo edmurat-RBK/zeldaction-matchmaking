@@ -96,7 +96,7 @@ public class DraftLoop {
             tracker.compareDraftClass2(draftClass2);
 
             tracker.incCounter();
-            if(tracker.draftCount%1000 == 0) {
+            if(tracker.draftCount%Main.promptFrequency == 0) {
                 System.out.println(Math.round((1.0 * tracker.draftCount) / tracker.maximumDraft * 10000)*1.0/100 + "% - " + tracker.draftCount + " drafts completed"); /*[Best Class 1 : "+tracker.bestClass1.averageScore+"/"+tracker.bestClass1.deviationScore+" || Best Class 2 : "+tracker.bestClass2.averageScore+"/"+tracker.bestClass2.deviationScore+"]");*/
             }
         }
