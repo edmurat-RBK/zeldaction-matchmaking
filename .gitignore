@@ -25,8 +25,6 @@ hs_err_pid*
 *.iml
 .idea/*
 
-out/production/zeldaction-matching/META-INF/zeldaction-matching.kotlin_module
+out/*
 
-data/output/pool_2/
-
-data/output/pool_1/
+data/*

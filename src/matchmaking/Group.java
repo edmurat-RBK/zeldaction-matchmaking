@@ -8,16 +8,34 @@ public class Group {
     public int designCount = 0;
     public int artCount = 0;
     public int relationScore = 0;
+    public SkillScore skillScore;
+    public WishScore wishScore;
 
     @Override
     public String toString() {
         groupCount();
 
         String output = "Groupe : "+designCount+"GD / "+artCount+"GA"+"\n";
-        output += "Score : "+relationScore + "\n";
+        output += "--- SKILLS ---\n";
+        output += "Prog:"+skillScore.gameProgramming+"  ND:"+skillScore.narrativeDesign+"  LD:"+skillScore.levelDesign+"  SD:"+skillScore.soundDesign+"\n";
+        output += "Chara:"+skillScore.charaDesign+"  Enviro:"+skillScore.environmentDesign+"  Tech:"+skillScore.techArt+"  3D:"+skillScore.model3D+"  Anim:"+skillScore.animation+"\n";
+        output += "--- WISHES ---\n";
+        output += "GameProg:"+wishScore.gameProgramming+
+                  " NarratD:"+wishScore.narrativeDesign+
+                  "  LevelD:"+wishScore.levelDesign+
+                  "  SoundD:"+wishScore.soundDesign+"\n";
+        output += "   Chara:"+wishScore.charaDesign+
+                  "  Enviro:"+wishScore.environmentDesign+
+                  "    Tech:"+wishScore.techArt+
+                  "      3D:"+wishScore.model3D+
+                  "    Anim:"+wishScore.animation+"\n";
+        output += "--- SCORE -----\n";
+        output += "     "+relationScore;
+        output += "---------------\n";
         for(Student s : draft) {
             output += s + "\n";
         }
+        output += "\n";
         return output;
     }
 
@@ -26,6 +44,8 @@ public class Group {
      */
     public Group() {
         this.draft = new HashSet<>();
+        this.skillScore = new SkillScore();
+        this.wishScore = new WishScore();
     }
 
     /**
@@ -34,6 +54,15 @@ public class Group {
     public void join(Student student) {
         draft.add(student);
         groupCount();
+    }
+
+    public Study pmStudy() {
+        for(Student student : draft) {
+            if(student.projectManager) {
+                return student.study;
+            }
+        }
+        return null;
     }
 
     /**
@@ -70,10 +99,16 @@ public class Group {
                     if(!student.rogueLikeProject.equals(other.rogueLikeProject) && !student.boardGameProject.equals(other.boardGameProject)) {
                         relationScore += ScoreSystem.noWorkRelation;
                     }
-                    //Ban relation
-                    for(String banName : student.banList) {
+                    //Soft ban relation
+                    for(String banName : student.softBanList) {
                         if(banName.equals(other.name)) {
-                            relationScore += ScoreSystem.bannedRelation;
+                            relationScore += ScoreSystem.softBannedRelation;
+                        }
+                    }
+                    //Hard ban relation
+                    for(String banName : student.hardBanList) {
+                        if(banName.equals(other.name)) {
+                            relationScore += ScoreSystem.hardBannedRelation;
                         }
                     }
                     //Fav relation
@@ -85,5 +120,45 @@ public class Group {
                 }
             }
         }
+    }
+
+    public void evaluateSkill() throws IncorrectStudyException {
+        for(Student student : draft) {
+            if(student.study == Study.DESIGN) {
+                skillScore.gameProgramming += student.skill.getGameProgramming();
+                skillScore.narrativeDesign += student.skill.getNarrativeDesign();
+                skillScore.levelDesign += student.skill.getLevelDesign();
+                skillScore.soundDesign += student.skill.getSoundDesign();
+            }
+            else {
+                skillScore.charaDesign += student.skill.getCharaDesign();
+                skillScore.environmentDesign += student.skill.getEnvironmentDesign();
+                skillScore.techArt += student.skill.getTechArt();
+                skillScore.model3D += student.skill.getModel3D();
+                skillScore.animation += student.skill.getAnimation();
+            }
+        }
+        
+        skillScore.convertToAverage(designCount,artCount);
+    }
+    
+    public void evaluateWish() throws IncorrectStudyException {
+        for(Student student : draft) {
+            if(student.study == Study.DESIGN) {
+                wishScore.gameProgramming += student.wish.getGameProgramming();
+                wishScore.narrativeDesign += student.wish.getNarrativeDesign();
+                wishScore.levelDesign += student.wish.getLevelDesign();
+                wishScore.soundDesign += student.wish.getSoundDesign();
+            }
+            else {
+                wishScore.charaDesign += student.wish.getCharaDesign();
+                wishScore.environmentDesign += student.wish.getEnvironmentDesign();
+                wishScore.techArt += student.wish.getTechArt();
+                wishScore.model3D += student.wish.getModel3D();
+                wishScore.animation += student.wish.getAnimation();
+            }
+        }
+        
+        wishScore.convertToAverage(designCount,artCount);
     }
 }

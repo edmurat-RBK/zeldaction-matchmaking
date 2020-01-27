@@ -49,7 +49,7 @@ public class Tracker {
             bestClass2 = draft;
         }
     }
-
+    
     /**
      * Compare a draft to best draft of class 1
      */

@@ -11,14 +11,8 @@ public class Student {
     public boolean projectManager;
     public boolean leadProgrammer;
     public boolean artDirector;
-    public int wishGP;
-    public int wishND;
-    public int wishLD;
-    public int wishSD;
-    public int skillGP;
-    public int skillND;
-    public int skillLD;
-    public int skillSD;
+    public WishPoint wish;
+    public SkillPoint skill;
     public String[] softBanList;
     public String[] hardBanList;
     public String[] favList;
@@ -26,8 +20,7 @@ public class Student {
     public Student(String name, Study study, Pool classPool,
                    String boardGameProject, String rogueLikeProject,
                    boolean projectManager, boolean leadProgrammer, boolean artDirector,
-                   int wishGP, int wishND, int wishLD, int wishSD,
-                   int skillGP, int skillND, int skillLD, int skillSD,
+                   WishPoint wish, SkillPoint skill,
                    String[] softBanList, String[] hardBanList, String[] favList) {
         this.name = name;
         this.study = study;
@@ -40,15 +33,8 @@ public class Student {
         this.leadProgrammer = leadProgrammer;
         this.artDirector = artDirector;
 
-        this.wishGP = wishGP;
-        this.wishND = wishND;
-        this.wishLD = wishLD;
-        this.wishSD = wishSD;
-
-        this.skillGP = skillGP;
-        this.skillND = skillND;
-        this.skillLD = skillLD;
-        this.skillSD = skillSD;
+        this.wish = wish;
+        this.skill = skill;
 
         this.softBanList = softBanList;
         this.hardBanList = hardBanList;

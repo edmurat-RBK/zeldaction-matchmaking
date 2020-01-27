@@ -78,8 +78,12 @@ public class Main {
                             ScoreSystem.noWorkRelation = Integer.parseInt(value);
                             break;
 
-                        case "point-ban":
-                            ScoreSystem.bannedRelation = Integer.parseInt(value);
+                        case "point-soft-ban":
+                            ScoreSystem.softBannedRelation = Integer.parseInt(value);
+                            break;
+
+                        case "point-hard-ban":
+                            ScoreSystem.hardBannedRelation = Integer.parseInt(value);
                             break;
 
                         case "point-fav":
@@ -143,25 +147,26 @@ public class Main {
                 boolean tmpProjectManager = tokens[5].equals("TRUE");
                 boolean tmpLeadProgrammer = tokens[6].equals("TRUE");
                 boolean tmpArtDirector = tokens[7].equals("TRUE");
-                int wishGP = Integer.parseInt(tokens[8]);
-                int wishND = Integer.parseInt(tokens[9]);
-                int wishLD = Integer.parseInt(tokens[10]);
-                int wishSD = Integer.parseInt(tokens[11]);
-                int skillGP = Integer.parseInt(tokens[12]);
-                int skillND = Integer.parseInt(tokens[13]);
-                int skillLD = Integer.parseInt(tokens[14]);
-                int skillSD = Integer.parseInt(tokens[15]);
-                String[] tmpSoftBanList = new String[]{tokens[16]};
-                String[] tmpHardBanList = new String[]{tokens[17],tokens[18],tokens[19],tokens[20],tokens[21]};
-                String[] tmpFavList = new String[]{tokens[22],tokens[23],tokens[24]};
+                WishPoint tmpWish;
+                SkillPoint tmpSkill;
+                if(tmpStudy == Study.DESIGN) {
+                    tmpWish = new WishPointGD(Integer.parseInt(tokens[8]),Integer.parseInt(tokens[9]),Integer.parseInt(tokens[10]),Integer.parseInt(tokens[11]));
+                    tmpSkill = new SkillPointGD(Integer.parseInt(tokens[17]),Integer.parseInt(tokens[18]),Integer.parseInt(tokens[19]),Integer.parseInt(tokens[20]));
+                }
+                else {
+                    tmpWish = new WishPointGA(Integer.parseInt(tokens[12]),Integer.parseInt(tokens[13]),Integer.parseInt(tokens[14]),Integer.parseInt(tokens[15]),Integer.parseInt(tokens[16]));
+                    tmpSkill = new SkillPointGA(Integer.parseInt(tokens[21]),Integer.parseInt(tokens[22]),Integer.parseInt(tokens[23]),Integer.parseInt(tokens[24]),Integer.parseInt(tokens[25]));
+                }
+                String[] tmpSoftBanList = new String[]{tokens[26]};
+                String[] tmpHardBanList = new String[]{tokens[27],tokens[28],tokens[29],tokens[30],tokens[31]};
+                String[] tmpFavList = new String[]{tokens[32],tokens[33],tokens[34]};
 
                 //Send Student object to StudentTable
                 StudentTable.addEntry(new Student(
                         tmpName,tmpStudy,tmpClassPool,
                         tmpBoardGame,tmpRogueLike,
                         tmpProjectManager,tmpLeadProgrammer,tmpArtDirector,
-                        wishGP,wishND,wishLD,wishSD,
-                        skillGP,skillND,skillLD,skillSD,
+                        tmpWish,tmpSkill,
                         tmpSoftBanList,tmpHardBanList,tmpFavList));
             }
         }
