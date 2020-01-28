@@ -1,10 +1,17 @@
 
------ alakaZAMM  v1.0
+----- alakaZAMM  v1.0 -----
 
------ 2020 Edouard Murat
 
+>>> Auteur
+
+Edouard Murat
+
+
+
+>>> Description
 
 alakaZAMM est un algorithme de matchmaking en Java. Son objectif initial est de composer des groupes d'étudiants, suivant des règles définies, faisant en sorte de mettre en relation des personnes n'ayant jamais ou peu travaillé ensemble auparavant.
+
 
 
 >>> Installation
@@ -17,6 +24,7 @@ Dans le dossier où se trouve le .jar, executer la commande :
 
 Pour conserver l'encodage :
 	java -Dfile.encoding=UTF-8 -jar alakaZAMM.jar
+
 
 
 >>> Usage
@@ -43,12 +51,23 @@ Les fichers de resultat sont les fichiers "draft_<NUMERO DE DRAFT>.txt"
 Le ficher avec le plus grand numéro de draft est supposé être la meilleure composition à la fin de l'execution.
 
 
->>> Contribution
+
+>>> Contribution & Support
 
 Les pulls requests sont possible sur le GitHub du projet :
 https://github.com/edmurat-RBK/zeldaction-matchmaking
 
-Si vous remarquez une erreur ou souhaitez un changement, ouvrez un ticket "Isssue" pour pouvoir en discuter
+Si vous remarquez une erreur ou souhaitez un changement, ouvrez un ticket (Issue) pour pouvoir en discuter
+
+
+
+>>> Roadmap
+
+- Interface graphique
+- Flexibilité sur l'entrée de données
+- Viabilité de l'algorithme pour les projets futurs
+- ...
+
 
 
 >>> Licence
