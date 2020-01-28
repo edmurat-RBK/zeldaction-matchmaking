@@ -71,7 +71,7 @@ public class DraftLoop {
             //Increment counters
             tracker.incCounter();
             //Display processing lines
-            if(tracker.draftCount%Main.promptFrequency == 0) {
+            if(tracker.draftCount%Main.displayFrequency == 0) {
                 System.out.println(Math.round((1.0 * tracker.draftCount) / tracker.maximumDraft * 10000)*1.0/100 + "% - " + tracker.draftCount + " drafts completed"); /*[Best Class 1 : "+tracker.bestClass1.averageScore+"/"+tracker.bestClass1.deviationScore+" || Best Class 2 : "+tracker.bestClass2.averageScore+"/"+tracker.bestClass2.deviationScore+"]");*/
             }
         }

@@ -16,26 +16,28 @@ public class Group {
         groupCount();
 
         String output = "Groupe : "+designCount+"GD / "+artCount+"GA"+"\n";
-        output += "------- WISHES -------\n";
-        output += "  Game programming : "+totalWishAndSkill.get(Ability.GAME_PROGRAMMING).wish+"\n"+
-                  "  Narrative design : "+totalWishAndSkill.get(Ability.NARRATIVE_DESIGN).wish+"\n"+
-                  "      Level design : "+totalWishAndSkill.get(Ability.LEVEL_DESIGN).wish+"\n"+
-                  "      Sound design : "+totalWishAndSkill.get(Ability.SOUND_DESIGN).wish+"\n";
-        output += "  Character design : "+totalWishAndSkill.get(Ability.CHARACTER_DESIGN).wish+"\n"+
-                  "Environment design : "+totalWishAndSkill.get(Ability.ENVIRONMENTAL_DESIGN).wish+"\n"+
-                  "          Tech art : "+totalWishAndSkill.get(Ability.TECH_ART).wish+"\n"+
-                  "   Modelisation 3D : "+totalWishAndSkill.get(Ability.MODELISATION_3D).wish+"\n"+
-                  "         Animation : "+totalWishAndSkill.get(Ability.ANIMATION).wish+"\n";
-        output += "------- SKILLS -------\n";
-        output += "  Game programming : "+totalWishAndSkill.get(Ability.GAME_PROGRAMMING).skill+"\n"+
-                  "  Narrative design : "+totalWishAndSkill.get(Ability.NARRATIVE_DESIGN).skill+"\n"+
-                  "      Level design : "+totalWishAndSkill.get(Ability.LEVEL_DESIGN).skill+"\n"+
-                  "      Sound design : "+totalWishAndSkill.get(Ability.SOUND_DESIGN).skill+"\n";
-        output += "  Character design : "+totalWishAndSkill.get(Ability.CHARACTER_DESIGN).skill+"\n"+
-                  "Environment design : "+totalWishAndSkill.get(Ability.ENVIRONMENTAL_DESIGN).skill+"\n"+
-                  "          Tech art : "+totalWishAndSkill.get(Ability.TECH_ART).skill+"\n"+
-                  "   Modelisation 3D : "+totalWishAndSkill.get(Ability.MODELISATION_3D).skill+"\n"+
-                  "         Animation : "+totalWishAndSkill.get(Ability.ANIMATION).skill+"\n";
+        if(Main.showAbilities) {
+            output += "------- WISHES -------\n";
+            output += "  Game programming : " + totalWishAndSkill.get(Ability.GAME_PROGRAMMING).wish + "\n" +
+                    "  Narrative design : " + totalWishAndSkill.get(Ability.NARRATIVE_DESIGN).wish + "\n" +
+                    "      Level design : " + totalWishAndSkill.get(Ability.LEVEL_DESIGN).wish + "\n" +
+                    "      Sound design : " + totalWishAndSkill.get(Ability.SOUND_DESIGN).wish + "\n";
+            output += "  Character design : " + totalWishAndSkill.get(Ability.CHARACTER_DESIGN).wish + "\n" +
+                    "Environment design : " + totalWishAndSkill.get(Ability.ENVIRONMENTAL_DESIGN).wish + "\n" +
+                    "          Tech art : " + totalWishAndSkill.get(Ability.TECH_ART).wish + "\n" +
+                    "   Modelisation 3D : " + totalWishAndSkill.get(Ability.MODELISATION_3D).wish + "\n" +
+                    "         Animation : " + totalWishAndSkill.get(Ability.ANIMATION).wish + "\n";
+            output += "------- SKILLS -------\n";
+            output += "  Game programming : " + totalWishAndSkill.get(Ability.GAME_PROGRAMMING).skill + "\n" +
+                    "  Narrative design : " + totalWishAndSkill.get(Ability.NARRATIVE_DESIGN).skill + "\n" +
+                    "      Level design : " + totalWishAndSkill.get(Ability.LEVEL_DESIGN).skill + "\n" +
+                    "      Sound design : " + totalWishAndSkill.get(Ability.SOUND_DESIGN).skill + "\n";
+            output += "  Character design : " + totalWishAndSkill.get(Ability.CHARACTER_DESIGN).skill + "\n" +
+                    "Environment design : " + totalWishAndSkill.get(Ability.ENVIRONMENTAL_DESIGN).skill + "\n" +
+                    "          Tech art : " + totalWishAndSkill.get(Ability.TECH_ART).skill + "\n" +
+                    "   Modelisation 3D : " + totalWishAndSkill.get(Ability.MODELISATION_3D).skill + "\n" +
+                    "         Animation : " + totalWishAndSkill.get(Ability.ANIMATION).skill + "\n";
+        }
         output += "------- SCORE -------\n";
         output += "         "+relationScore+"\n";
         output += "---------------------\n";

@@ -34,44 +34,46 @@ public class Draft {
         output += "===== SCORE ==================\n";
         output += "Average score : " + averageScore + "\n";
         output += "Standard deviation : " + Math.round(deviationScore*1000)/1000.0 + "\n";
-        output += "===== WISHES =================\n";
-        output += "  Game programming >   Moyenne : "+averageAbility.get(Ability.GAME_PROGRAMMING).wish+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.GAME_PROGRAMMING).wish+"\n"+
-                  "  Narrative design >   Moyenne : "+averageAbility.get(Ability.NARRATIVE_DESIGN).wish+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.NARRATIVE_DESIGN).wish+"\n"+
-                  "      Level design >   Moyenne : "+averageAbility.get(Ability.LEVEL_DESIGN).wish+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.LEVEL_DESIGN).wish+"\n"+
-                  "      Sound design >   Moyenne : "+averageAbility.get(Ability.SOUND_DESIGN).wish+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.SOUND_DESIGN).wish+"\n";
-        output += "  Character design >   Moyenne : "+averageAbility.get(Ability.CHARACTER_DESIGN).wish+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.CHARACTER_DESIGN).wish+"\n"+
-                  "Environment design >   Moyenne : "+averageAbility.get(Ability.ENVIRONMENTAL_DESIGN).wish+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.ENVIRONMENTAL_DESIGN).wish+"\n"+
-                  "          Tech art >   Moyenne : "+averageAbility.get(Ability.TECH_ART).wish+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.TECH_ART).wish+"\n"+
-                  "   Modelisation 3D >   Moyenne : "+averageAbility.get(Ability.MODELISATION_3D).wish+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.MODELISATION_3D).wish+"\n"+
-                  "         Animation >   Moyenne : "+averageAbility.get(Ability.ANIMATION).wish+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.ANIMATION).wish+"\n";
-        output += "===== SKILLS =================\n";
-        output += "  Game programming >   Moyenne : "+averageAbility.get(Ability.GAME_PROGRAMMING).skill+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.GAME_PROGRAMMING).skill+"\n"+
-                  "  Narrative design >   Moyenne : "+averageAbility.get(Ability.NARRATIVE_DESIGN).skill+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.NARRATIVE_DESIGN).skill+"\n"+
-                  "      Level design >   Moyenne : "+averageAbility.get(Ability.LEVEL_DESIGN).skill+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.LEVEL_DESIGN).skill+"\n"+
-                  "      Sound design >   Moyenne : "+averageAbility.get(Ability.SOUND_DESIGN).skill+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.SOUND_DESIGN).skill+"\n";
-        output += "  Character design >   Moyenne : "+averageAbility.get(Ability.CHARACTER_DESIGN).skill+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.CHARACTER_DESIGN).skill+"\n"+
-                  "Environment design >   Moyenne : "+averageAbility.get(Ability.ENVIRONMENTAL_DESIGN).skill+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.ENVIRONMENTAL_DESIGN).skill+"\n"+
-                  "          Tech art >   Moyenne : "+averageAbility.get(Ability.TECH_ART).skill+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.TECH_ART).skill+"\n"+
-                  "   Modelisation 3D >   Moyenne : "+averageAbility.get(Ability.MODELISATION_3D).skill+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.MODELISATION_3D).skill+"\n"+
-                  "         Animation >   Moyenne : "+averageAbility.get(Ability.ANIMATION).skill+"\n"+
-                  "                     Deviation : "+deviationAbility.get(Ability.ANIMATION).skill+"\n";
+        if(Main.showAbilities) {
+            output += "===== WISHES =================\n";
+            output += "  Game programming >   Moyenne : " + averageAbility.get(Ability.GAME_PROGRAMMING).wish + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.GAME_PROGRAMMING).wish + "\n" +
+                    "  Narrative design >   Moyenne : " + averageAbility.get(Ability.NARRATIVE_DESIGN).wish + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.NARRATIVE_DESIGN).wish + "\n" +
+                    "      Level design >   Moyenne : " + averageAbility.get(Ability.LEVEL_DESIGN).wish + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.LEVEL_DESIGN).wish + "\n" +
+                    "      Sound design >   Moyenne : " + averageAbility.get(Ability.SOUND_DESIGN).wish + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.SOUND_DESIGN).wish + "\n";
+            output += "  Character design >   Moyenne : " + averageAbility.get(Ability.CHARACTER_DESIGN).wish + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.CHARACTER_DESIGN).wish + "\n" +
+                    "Environment design >   Moyenne : " + averageAbility.get(Ability.ENVIRONMENTAL_DESIGN).wish + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.ENVIRONMENTAL_DESIGN).wish + "\n" +
+                    "          Tech art >   Moyenne : " + averageAbility.get(Ability.TECH_ART).wish + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.TECH_ART).wish + "\n" +
+                    "   Modelisation 3D >   Moyenne : " + averageAbility.get(Ability.MODELISATION_3D).wish + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.MODELISATION_3D).wish + "\n" +
+                    "         Animation >   Moyenne : " + averageAbility.get(Ability.ANIMATION).wish + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.ANIMATION).wish + "\n";
+            output += "===== SKILLS =================\n";
+            output += "  Game programming >   Moyenne : " + averageAbility.get(Ability.GAME_PROGRAMMING).skill + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.GAME_PROGRAMMING).skill + "\n" +
+                    "  Narrative design >   Moyenne : " + averageAbility.get(Ability.NARRATIVE_DESIGN).skill + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.NARRATIVE_DESIGN).skill + "\n" +
+                    "      Level design >   Moyenne : " + averageAbility.get(Ability.LEVEL_DESIGN).skill + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.LEVEL_DESIGN).skill + "\n" +
+                    "      Sound design >   Moyenne : " + averageAbility.get(Ability.SOUND_DESIGN).skill + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.SOUND_DESIGN).skill + "\n";
+            output += "  Character design >   Moyenne : " + averageAbility.get(Ability.CHARACTER_DESIGN).skill + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.CHARACTER_DESIGN).skill + "\n" +
+                    "Environment design >   Moyenne : " + averageAbility.get(Ability.ENVIRONMENTAL_DESIGN).skill + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.ENVIRONMENTAL_DESIGN).skill + "\n" +
+                    "          Tech art >   Moyenne : " + averageAbility.get(Ability.TECH_ART).skill + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.TECH_ART).skill + "\n" +
+                    "   Modelisation 3D >   Moyenne : " + averageAbility.get(Ability.MODELISATION_3D).skill + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.MODELISATION_3D).skill + "\n" +
+                    "         Animation >   Moyenne : " + averageAbility.get(Ability.ANIMATION).skill + "\n" +
+                    "                     Deviation : " + deviationAbility.get(Ability.ANIMATION).skill + "\n";
+        }
         output += "==============================\n\n\n";
         for(Group group : groupSet) {
             output += group + "\n";

@@ -10,7 +10,9 @@ public class Main {
     public static String csvPath;
     public static int maxDraft;
     public static int timeOut;
-    public static int promptFrequency;
+    public static int displayFrequency;
+    public static boolean showAbilities;
+    public static int integralPrecision;
 
     /**
      * Main method
@@ -90,8 +92,16 @@ public class Main {
                             ScoreSystem.favoredRelation = Integer.parseInt(value);
                             break;
 
-                        case "prompt-frequency":
-                            Main.promptFrequency = Integer.parseInt(value);
+                        case "display-frequency":
+                            Main.displayFrequency = Integer.parseInt(value);
+                            break;
+
+                        case "show-abilities":
+                            Main.showAbilities = Boolean.parseBoolean(value);
+                            break;
+
+                        case "integral-precision":
+                            Main.integralPrecision = Integer.parseInt(value);
                             break;
 
                         default:

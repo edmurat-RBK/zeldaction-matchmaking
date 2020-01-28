@@ -60,8 +60,8 @@ public class Tracker {
             //Calculate integral bewteen best gauss function and draft gauss function
             GaussFunction championFunction = new GaussFunction(bestClass1.averageScore, bestClass1.deviationScore);
             GaussFunction challengerFunction = new GaussFunction(draft.averageScore, draft.deviationScore);
-            double championIntegral = championFunction.simpson(draft.averageScore - draft.deviationScore, draft.averageScore + draft.deviationScore, 10);
-            double challengerIntegral = challengerFunction.simpson(draft.averageScore - draft.deviationScore, draft.averageScore + draft.deviationScore, 10);
+            double championIntegral = championFunction.simpson(draft.averageScore - draft.deviationScore, draft.averageScore + draft.deviationScore, Main.integralPrecision);
+            double challengerIntegral = challengerFunction.simpson(draft.averageScore - draft.deviationScore, draft.averageScore + draft.deviationScore, Main.integralPrecision);
 
             //If integral positive, replace best draft by given draft
             if (challengerIntegral - championIntegral > 0) {
