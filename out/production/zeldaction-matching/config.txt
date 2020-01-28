@@ -1,8 +1,0 @@
-csv-absolute-path=D:\Project\zeldaction-matching\data\student_list_test.csv
-max-draft=100000
-max-failure=10000000
-point-roguelike=6
-point-boardgame=4
-point-nowork=-1
-point-ban=5
-point-fav=-5

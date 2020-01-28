@@ -8,15 +8,15 @@ public class Group {
     public int designCount = 0;
     public int artCount = 0;
     public int relationScore = 0;
-    public SkillScore skillScore;
-    public WishScore wishScore;
+    //public SkillScore skillScore;
+    //public WishScore wishScore;
 
     @Override
     public String toString() {
         groupCount();
 
         String output = "Groupe : "+designCount+"GD / "+artCount+"GA"+"\n";
-        output += "--- SKILLS ---\n";
+        /*output += "--- SKILLS ---\n";
         output += "Prog:"+skillScore.gameProgramming+"  ND:"+skillScore.narrativeDesign+"  LD:"+skillScore.levelDesign+"  SD:"+skillScore.soundDesign+"\n";
         output += "Chara:"+skillScore.charaDesign+"  Enviro:"+skillScore.environmentDesign+"  Tech:"+skillScore.techArt+"  3D:"+skillScore.model3D+"  Anim:"+skillScore.animation+"\n";
         output += "--- WISHES ---\n";
@@ -28,14 +28,14 @@ public class Group {
                   "  Enviro:"+wishScore.environmentDesign+
                   "    Tech:"+wishScore.techArt+
                   "      3D:"+wishScore.model3D+
-                  "    Anim:"+wishScore.animation+"\n";
+                  "    Anim:"+wishScore.animation+"\n";*/
         output += "--- SCORE -----\n";
-        output += "     "+relationScore;
+        output += "     "+relationScore+"\n";
         output += "---------------\n";
         for(Student s : draft) {
             output += s + "\n";
         }
-        output += "\n";
+        output += "\n\n";
         return output;
     }
 
@@ -44,8 +44,8 @@ public class Group {
      */
     public Group() {
         this.draft = new HashSet<>();
-        this.skillScore = new SkillScore();
-        this.wishScore = new WishScore();
+        //this.skillScore = new SkillScore();
+        //this.wishScore = new WishScore();
     }
 
     /**
@@ -122,7 +122,7 @@ public class Group {
         }
     }
 
-    public void evaluateSkill() throws IncorrectStudyException {
+    /*public void evaluateSkill() throws IncorrectStudyException {
         for(Student student : draft) {
             if(student.study == Study.DESIGN) {
                 skillScore.gameProgramming += student.skill.getGameProgramming();
@@ -160,5 +160,5 @@ public class Group {
         }
         
         wishScore.convertToAverage(designCount,artCount);
-    }
+    }*/
 }

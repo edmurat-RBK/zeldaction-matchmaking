@@ -1,0 +1,11 @@
+csv-absolute-path=<INSERT JAR PATH>\data\listV4_test.csv
+max-draft=100000000
+max-failure=75000000
+prompt-frequency=10000
+point-roguelike=5
+point-boardgame=3
+point-nowork=0
+point-soft-ban=10
+point-hard-ban=100
+point-fav=-10
+
