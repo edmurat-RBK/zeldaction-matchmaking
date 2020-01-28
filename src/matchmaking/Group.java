@@ -1,5 +1,6 @@
 package matchmaking;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Group {
@@ -8,30 +9,36 @@ public class Group {
     public int designCount = 0;
     public int artCount = 0;
     public int relationScore = 0;
-    //public SkillScore skillScore;
-    //public WishScore wishScore;
+    public HashMap<Ability,AbilityScore> totalWishAndSkill;
 
     @Override
     public String toString() {
         groupCount();
 
         String output = "Groupe : "+designCount+"GD / "+artCount+"GA"+"\n";
-        /*output += "--- SKILLS ---\n";
-        output += "Prog:"+skillScore.gameProgramming+"  ND:"+skillScore.narrativeDesign+"  LD:"+skillScore.levelDesign+"  SD:"+skillScore.soundDesign+"\n";
-        output += "Chara:"+skillScore.charaDesign+"  Enviro:"+skillScore.environmentDesign+"  Tech:"+skillScore.techArt+"  3D:"+skillScore.model3D+"  Anim:"+skillScore.animation+"\n";
-        output += "--- WISHES ---\n";
-        output += "GameProg:"+wishScore.gameProgramming+
-                  " NarratD:"+wishScore.narrativeDesign+
-                  "  LevelD:"+wishScore.levelDesign+
-                  "  SoundD:"+wishScore.soundDesign+"\n";
-        output += "   Chara:"+wishScore.charaDesign+
-                  "  Enviro:"+wishScore.environmentDesign+
-                  "    Tech:"+wishScore.techArt+
-                  "      3D:"+wishScore.model3D+
-                  "    Anim:"+wishScore.animation+"\n";*/
-        output += "--- SCORE -----\n";
-        output += "     "+relationScore+"\n";
-        output += "---------------\n";
+        output += "------- WISHES -------\n";
+        output += "  Game programming : "+totalWishAndSkill.get(Ability.GAME_PROGRAMMING).wish+"\n"+
+                  "  Narrative design : "+totalWishAndSkill.get(Ability.NARRATIVE_DESIGN).wish+"\n"+
+                  "      Level design : "+totalWishAndSkill.get(Ability.LEVEL_DESIGN).wish+"\n"+
+                  "      Sound design : "+totalWishAndSkill.get(Ability.SOUND_DESIGN).wish+"\n";
+        output += "  Character design : "+totalWishAndSkill.get(Ability.CHARACTER_DESIGN).wish+"\n"+
+                  "Environment design : "+totalWishAndSkill.get(Ability.ENVIRONMENTAL_DESIGN).wish+"\n"+
+                  "          Tech art : "+totalWishAndSkill.get(Ability.TECH_ART).wish+"\n"+
+                  "   Modelisation 3D : "+totalWishAndSkill.get(Ability.MODELISATION_3D).wish+"\n"+
+                  "         Animation : "+totalWishAndSkill.get(Ability.ANIMATION).wish+"\n";
+        output += "------- SKILLS -------\n";
+        output += "  Game programming : "+totalWishAndSkill.get(Ability.GAME_PROGRAMMING).skill+"\n"+
+                  "  Narrative design : "+totalWishAndSkill.get(Ability.NARRATIVE_DESIGN).skill+"\n"+
+                  "      Level design : "+totalWishAndSkill.get(Ability.LEVEL_DESIGN).skill+"\n"+
+                  "      Sound design : "+totalWishAndSkill.get(Ability.SOUND_DESIGN).skill+"\n";
+        output += "  Character design : "+totalWishAndSkill.get(Ability.CHARACTER_DESIGN).skill+"\n"+
+                  "Environment design : "+totalWishAndSkill.get(Ability.ENVIRONMENTAL_DESIGN).skill+"\n"+
+                  "          Tech art : "+totalWishAndSkill.get(Ability.TECH_ART).skill+"\n"+
+                  "   Modelisation 3D : "+totalWishAndSkill.get(Ability.MODELISATION_3D).skill+"\n"+
+                  "         Animation : "+totalWishAndSkill.get(Ability.ANIMATION).skill+"\n";
+        output += "------- SCORE -------\n";
+        output += "         "+relationScore+"\n";
+        output += "---------------------\n";
         for(Student s : draft) {
             output += s + "\n";
         }
@@ -44,8 +51,10 @@ public class Group {
      */
     public Group() {
         this.draft = new HashSet<>();
-        //this.skillScore = new SkillScore();
-        //this.wishScore = new WishScore();
+        totalWishAndSkill = new HashMap<>();
+        for(Ability ability : Ability.values()) {
+            totalWishAndSkill.put(ability, new AbilityScore(ability,0,0));
+        }
     }
 
     /**
@@ -122,43 +131,78 @@ public class Group {
         }
     }
 
-    /*public void evaluateSkill() throws IncorrectStudyException {
-        for(Student student : draft) {
-            if(student.study == Study.DESIGN) {
-                skillScore.gameProgramming += student.skill.getGameProgramming();
-                skillScore.narrativeDesign += student.skill.getNarrativeDesign();
-                skillScore.levelDesign += student.skill.getLevelDesign();
-                skillScore.soundDesign += student.skill.getSoundDesign();
+    public void evaluateWishAndSkill() throws IncorrectStudyException {
+        for(Ability ability : Ability.values()) {
+            float tmpWish = 0;
+            float tmpSkill = 0;
+            switch(ability) {
+                case GAME_PROGRAMMING:
+                    for(Student student : StudentTable.inStudy(Study.DESIGN,draft)) {
+                        tmpWish += student.wish.getGameProgramming();
+                        tmpSkill += student.skill.getGameProgramming();
+                    }
+                    break;
+
+                case NARRATIVE_DESIGN:
+                    for(Student student : StudentTable.inStudy(Study.DESIGN,draft)) {
+                        tmpWish += student.wish.getNarrativeDesign();
+                        tmpSkill += student.skill.getNarrativeDesign();
+                    }
+                    break;
+
+                case LEVEL_DESIGN:
+                    for(Student student : StudentTable.inStudy(Study.DESIGN,draft)) {
+                        tmpWish += student.wish.getLevelDesign();
+                        tmpSkill += student.skill.getLevelDesign();
+                    }
+                    break;
+
+                case SOUND_DESIGN:
+                    for(Student student : StudentTable.inStudy(Study.DESIGN,draft)) {
+                        tmpWish += student.wish.getSoundDesign();
+                        tmpSkill += student.skill.getSoundDesign();
+                    }
+                    break;
+
+                case CHARACTER_DESIGN:
+                    for(Student student : StudentTable.inStudy(Study.ART,draft)) {
+                        tmpWish += student.wish.getCharaDesign();
+                        tmpSkill += student.skill.getCharaDesign();
+                    }
+                    break;
+
+                case ENVIRONMENTAL_DESIGN:
+                    for(Student student : StudentTable.inStudy(Study.ART,draft)) {
+                        tmpWish += student.wish.getEnvironmentDesign();
+                        tmpSkill += student.skill.getEnvironmentDesign();
+                    }
+                    break;
+
+                case TECH_ART:
+                    for(Student student : StudentTable.inStudy(Study.ART,draft)) {
+                        tmpWish += student.wish.getTechArt();
+                        tmpSkill += student.skill.getTechArt();
+                    }
+                    break;
+
+                case MODELISATION_3D:
+                    for(Student student : StudentTable.inStudy(Study.ART,draft)) {
+                        tmpWish += student.wish.getModel3D();
+                        tmpSkill += student.skill.getModel3D();
+                    }
+                    break;
+
+                case ANIMATION:
+                    for(Student student : StudentTable.inStudy(Study.ART,draft)) {
+                        tmpWish += student.wish.getAnimation();
+                        tmpSkill += student.skill.getAnimation();
+                    }
+                    break;
+
+                default:
+                    break;
             }
-            else {
-                skillScore.charaDesign += student.skill.getCharaDesign();
-                skillScore.environmentDesign += student.skill.getEnvironmentDesign();
-                skillScore.techArt += student.skill.getTechArt();
-                skillScore.model3D += student.skill.getModel3D();
-                skillScore.animation += student.skill.getAnimation();
-            }
+            totalWishAndSkill.put(ability,new AbilityScore(ability,tmpWish,tmpSkill));
         }
-        
-        skillScore.convertToAverage(designCount,artCount);
     }
-    
-    public void evaluateWish() throws IncorrectStudyException {
-        for(Student student : draft) {
-            if(student.study == Study.DESIGN) {
-                wishScore.gameProgramming += student.wish.getGameProgramming();
-                wishScore.narrativeDesign += student.wish.getNarrativeDesign();
-                wishScore.levelDesign += student.wish.getLevelDesign();
-                wishScore.soundDesign += student.wish.getSoundDesign();
-            }
-            else {
-                wishScore.charaDesign += student.wish.getCharaDesign();
-                wishScore.environmentDesign += student.wish.getEnvironmentDesign();
-                wishScore.techArt += student.wish.getTechArt();
-                wishScore.model3D += student.wish.getModel3D();
-                wishScore.animation += student.wish.getAnimation();
-            }
-        }
-        
-        wishScore.convertToAverage(designCount,artCount);
-    }*/
 }

@@ -1,0 +1,13 @@
+package matchmaking;
+
+public enum Ability {
+    GAME_PROGRAMMING,
+    NARRATIVE_DESIGN,
+    LEVEL_DESIGN,
+    SOUND_DESIGN,
+    CHARACTER_DESIGN,
+    ENVIRONMENTAL_DESIGN,
+    TECH_ART,
+    MODELISATION_3D,
+    ANIMATION
+}
